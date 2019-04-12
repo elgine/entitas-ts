@@ -100,7 +100,7 @@ module.exports =
     for Name, properties of config.components
       ts.push "  export class #{Name}Component implements IComponent {"
       for p in properties
-        ts.push "    public #{p};"
+        ts.push "    public #{p.replace(/\:/, "!:")};"
       ts.push "  }"
     ts.push ""
 
@@ -215,13 +215,13 @@ module.exports =
           js.push "    return this;"
           js.push "  };"
 
-          d1.push "        static _#{name}ComponentPool;"
-          d1.push "        static clear#{Name}ComponentPool();"
-          d1.push "        #{name}: #{Name}Component;"
+          d1.push "        static _#{name}ComponentPool:entitas.utils.Bag<entitas.utils.#{Name}Component>;"
+          d1.push "        static clear#{Name}ComponentPool():void;"
+          d1.push "        #{name}: entitas.utils.#{Name}Component;"
           d1.push "        has#{Name}: boolean;"
-          d1.push "        add#{Name}(#{properties.join(', ')});"
-          d1.push "        replace#{Name}(#{properties.join(', ')});"
-          d1.push "        remove#{Name}();"
+          d1.push "        add#{Name}(#{properties.join(', ')}):Entity;"
+          d1.push "        replace#{Name}(#{properties.join(', ')}):Entity;"
+          d1.push "        remove#{Name}():Entity;"
 
 
     ###
@@ -243,7 +243,7 @@ module.exports =
       js.push "    }"
       js.push "  });"
 
-      d2.push "        static _matcher#{Name};"
+      d2.push "        static _matcher#{Name}:Matcher;"
       d2.push "        static #{Name}: Matcher;"
 
     ###
@@ -334,7 +334,7 @@ module.exports =
           js.push "  };"
 
           d3.push "        #{name}Entity: Entity;"
-          d3.push "        #{name}: #{Name}Component;"
+          d3.push "        #{name}: entitas.utils.#{Name}Component;"
           d3.push "        has#{Name}: boolean;"
           d3.push "        set#{Name}(#{properties.join(', ')}): Entity;"
           d3.push "        replace#{Name}(#{properties.join(', ')}): Entity;"
