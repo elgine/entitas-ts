@@ -5,17 +5,26 @@ use entitas cli to generate components, extensions & typescript declarations for
 
 
     Usage:
-    entitas init namespace [-t name]
-    entitas create -c name field:type... 
-    entitas generate [-p <html5|scala>]
-    
+        entitas init namespace [-t name]
+        entitas create -c name field:type...
+        entitas create -s name interface...
+        entitas create -e name
+        entitas create -x class name field:type...
+        entitas generate [-p <fs|html5|gs|scala|vala>]
+
     Options:
-    -d  [--debug>     # debug html5
-    -t  [--template]  # template name
-    -c  [--component] # create a component
-    -p  [--platform]  # target platform for generated code: 
-                            html5   - typescript & javascript combination (default)
-                            scala   - scala & scalaJs
+        -t  [--template]  # template name
+        -c  [--component] # create a component
+        -s  [--system]    # create a system
+        -e  [--entity]    # create an entity
+        -x  [--extension] # extend a class
+        -d  [--debug]     # set debug flag, where available
+        -p  [--platform]  # target platform for generated code:
+                                html5   - typescript & javascript combination (default)
+                                scala   - scala & scalaJs
+                                fs      - fsharp
+                                gs      - genie
+                                vala    - vala
                             
 
 Components classes are generated from json configuration, enforcing data oriented design.
